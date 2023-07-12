@@ -1,21 +1,26 @@
-import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { FilterSection, FilterInput, FilterTitle } from './Filterstyled';
 
-export default class Filter extends Component {
-  handleInputChange = e => {
-    this.props.onFilter(e.target.value);
+const Filter = ({ title, filter, onFilter }) => {
+  const handleInputChange = e => {
+    onFilter(e.target.value);
   };
-  render() {
-    return (
-      <FilterSection>
-        <FilterTitle>{this.props.title}</FilterTitle>
-        <FilterInput
-          onChange={this.handleInputChange}
-          value={this.props.filter}
-          type="text"
-          name="filter"
-        />
-      </FilterSection>
-    );
-  }
-}
+  return (
+    <FilterSection>
+      <FilterTitle>{title}</FilterTitle>
+      <FilterInput
+        onChange={handleInputChange}
+        value={filter}
+        type="text"
+        name="filter"
+      />
+    </FilterSection>
+  );
+};
+export default Filter;
+
+Filter.propTypes = {
+  title: PropTypes.string.isRequired,
+  filter: PropTypes.string.isRequired,
+  onFilter: PropTypes.func.isRequired,
+};
